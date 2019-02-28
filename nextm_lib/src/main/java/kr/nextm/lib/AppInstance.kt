@@ -30,11 +30,11 @@ object AppInstance {
     }
 
     fun restart(startingActivityClass: Class<*>) {
-        reserveStartSplashActivity(get(), startingActivityClass)
+        reserveStartActivity(get(), startingActivityClass)
         System.exit(0)
     }
 
-    private fun reserveStartSplashActivity(context: Context, startingActivityClass: Class<*>) {
+    private fun reserveStartActivity(context: Context, startingActivityClass: Class<*>) {
         val startingActivity = Intent(context, startingActivityClass)
         val mPendingIntentId = 123456
         val mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId, startingActivity,
