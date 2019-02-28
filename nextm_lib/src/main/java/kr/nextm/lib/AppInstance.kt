@@ -1,6 +1,11 @@
 package kr.nextm.lib
 
+import android.app.Activity
+import android.app.AlarmManager
 import android.app.Application
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import java.lang.ref.WeakReference
 
 object AppInstance {
@@ -24,4 +29,22 @@ object AppInstance {
         return result as Application
     }
 
+    fun restart(startingActivityClass: Class<*>) {
+        reserveStartSplashActivity(get(), startingActivityClass)
+        System.exit(0)
+    }
+
+    private fun reserveStartSplashActivity(context: Context, startingActivityClass: Class<*>) {
+        val startingActivity = Intent(context, startingActivityClass)
+        val mPendingIntentId = 123456
+        val mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId, startingActivity,
+            PendingIntent.FLAG_CANCEL_CURRENT)
+        val mgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent)
+    }
+
+    fun terminate(activity: Activity) {
+        activity.finishAffinity()
+        System.exit(0)
+    }
 }
