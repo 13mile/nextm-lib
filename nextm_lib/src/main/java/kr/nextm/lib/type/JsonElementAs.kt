@@ -1,6 +1,6 @@
-package kr.nextm.api.model.type
+package kr.nextm.lib.type
 
-import kr.nextm.util.GsonHelper
+import kr.nextm.lib.util.GsonHelper
 import java.io.Serializable
 
 open class JsonElementAs(val obj: Any, val outputType: OutputType) : Serializable {

@@ -7,9 +7,9 @@ import com.google.gson.TypeAdapter
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
-import kr.nextm.api.model.type.JsonElementAs
-import kr.nextm.api.model.type.JsonElementAsObject
-import kr.nextm.api.model.type.JsonElementAsString
+import kr.nextm.lib.type.JsonElementAs
+import kr.nextm.lib.type.JsonElementAsObject
+import kr.nextm.lib.type.JsonElementAsString
 import kr.nextm.lib.TLog
 import kr.nextm.lib.exceptions.ErrorLogException
 import kr.nextm.lib.type.OutputType
