@@ -1,4 +1,4 @@
-package kr.nextm.ex.next_m_lib
+package kr.nextm.lib
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

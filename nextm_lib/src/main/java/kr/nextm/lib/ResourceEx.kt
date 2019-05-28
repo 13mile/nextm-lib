@@ -17,6 +17,10 @@ fun Int.getString(): String {
     return app.getString(this)
 }
 
+fun Int.getString(vararg formatArgs: Any): String {
+    return app.getString(this, *formatArgs)
+}
+
 fun Number.dpToPixels(): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
