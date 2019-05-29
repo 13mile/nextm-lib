@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">next_m_lib</string>
+
+    <string name="error_not_expected" formatted="false">%3$s ERROR! NOT EXPECTED\n[%1$s]\n@[%2$s]</string>
 </resources>
