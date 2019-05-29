@@ -1,4 +1,4 @@
-package kr.nextm.lib
+package kr.nextm.lib.extension
 
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -6,6 +6,7 @@ import android.support.v4.app.ActivityCompat
 import android.text.Html
 import android.text.Spanned
 import android.util.TypedValue
+import kr.nextm.lib.AppInstance
 
 private val app get() = AppInstance.get()
 
