@@ -1,5 +1,6 @@
 package kr.nextm.lib
 
+import kr.nextm.lib.extension.*
 import org.junit.Test
 
 import org.junit.Assert.*

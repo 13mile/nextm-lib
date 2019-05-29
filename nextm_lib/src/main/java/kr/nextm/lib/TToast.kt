@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import kr.nextm.lib.extension.dpToPixels
 import java.lang.ref.WeakReference
 
 
