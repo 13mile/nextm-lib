@@ -18,6 +18,6 @@ allprojects {
 And add next dependencies in the build.gradle of the module:
 ```gradle
 dependencies {
-    implementation 'com.github.13mile:nextm-lib:0.0.8'
+    implementation 'com.github.13mile:nextm-lib:0.0.10'
 }
 ```
