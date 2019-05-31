@@ -41,7 +41,7 @@ fun Int.getDrawable(): Drawable {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         app.resources.getDrawable(this, null)
     } else {
-        throw RuntimeException("VERSION.SDK_INT < LOLLIPOP")
+        AppInstance.get().resources.getDrawable(this)
     }
 }
 
