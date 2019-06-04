@@ -50,7 +50,7 @@ object GsonHelper {
 
             registerTypeAdapter(
                 CurrencyAmount::class.java,
-                currencyAdapter<CurrencyAmount> { CurrencyAmount(it, Prefs.system.getCurrency()) })
+                currencyAdapter<CurrencyAmount> { CurrencyAmount(it) })
             registerTypeAdapter(
                 CurrencyAmountKrw::class.java,
                 currencyAdapter<CurrencyAmountKrw> { CurrencyAmountKrw(it) })
