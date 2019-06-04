@@ -18,6 +18,10 @@ fun Int.getString(): String {
     return app.getString(this)
 }
 
+fun Int.getString(vararg formatArgs: Any): String {
+    return app.getString(this, *formatArgs)
+}
+
 fun Number.dpToPixels(): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
@@ -38,7 +42,7 @@ fun Int.getDrawable(): Drawable {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         app.resources.getDrawable(this, null)
     } else {
-        throw RuntimeException("VERSION.SDK_INT < LOLLIPOP")
+        AppInstance.get().resources.getDrawable(this)
     }
 }
 

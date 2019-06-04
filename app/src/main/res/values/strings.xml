@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NEXT-M-LIB</string>
+    <string name="format_1">int %1$d / str %2$s</string>
 </resources>
