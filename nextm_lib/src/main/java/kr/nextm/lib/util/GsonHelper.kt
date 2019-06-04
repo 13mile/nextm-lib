@@ -7,12 +7,15 @@ import com.google.gson.TypeAdapter
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
-import kr.nextm.lib.type.JsonElementAs
-import kr.nextm.lib.type.JsonElementAsObject
-import kr.nextm.lib.type.JsonElementAsString
+import kr.nextm.api.model.type.CurrencyAmountKrw
+import kr.nextm.api.model.type.CurrencyAmountSgd
+import kr.nextm.api.model.type.time.SingaporeTime
 import kr.nextm.lib.TLog
 import kr.nextm.lib.exceptions.ErrorLogException
-import kr.nextm.lib.type.OutputType
+import kr.nextm.lib.type.*
+import kr.nextm.lib.type.time.GmtTime
+import kr.nextm.lib.type.time.KstTime
+import kr.nextm.lib.type.time.LocalTime
 import java.lang.reflect.Type
 
 object GsonHelper {
@@ -26,7 +29,7 @@ object GsonHelper {
 
     val pretty: Gson by lazy {
         builder().setPrettyPrinting()
-                .create()
+            .create()
     }
 
     private fun builder(): GsonBuilder {
@@ -39,6 +42,21 @@ object GsonHelper {
             if (Build.VERSION.SDK_INT >= 27) {
                 registerNotSupportedType<android.icu.util.CurrencyAmount>()
             }
+
+            registerTypeAdapter(LocalTime::class.java, timestampAdapter { LocalTime(it) })
+            registerTypeAdapter(GmtTime::class.java, timestampAdapter { GmtTime(it) })
+            registerTypeAdapter(KstTime::class.java, timestampAdapter { KstTime(it) })
+            registerTypeAdapter(SingaporeTime::class.java, timestampAdapter { SingaporeTime(it) })
+
+            registerTypeAdapter(
+                CurrencyAmount::class.java,
+                currencyAdapter<CurrencyAmount> { CurrencyAmount(it, Prefs.system.getCurrency()) })
+            registerTypeAdapter(
+                CurrencyAmountKrw::class.java,
+                currencyAdapter<CurrencyAmountKrw> { CurrencyAmountKrw(it) })
+            registerTypeAdapter(
+                CurrencyAmountSgd::class.java,
+                currencyAdapter<CurrencyAmountSgd> { CurrencyAmountSgd(it) })
 
             registerTypeAdapter(Int::class.java, numberConverter({ it.toInt() }))
 
@@ -96,8 +114,8 @@ object GsonHelper {
     }
 
     private fun <T> toStringConvertable(
-            transform: (T) -> String,
-            creator: (string: String) -> T
+        transform: (T) -> String,
+        creator: (string: String) -> T
     ) = object : TypeAdapter<T>() {
         override fun write(writer: JsonWriter, value: T?) {
             value?.let {
@@ -109,6 +127,36 @@ object GsonHelper {
             val string = reader.nextString()
             val value = creator(string)
             return value
+        }
+    }
+
+
+    private fun <T : LocalTime> timestampAdapter(creator: (string: String) -> T) = object : TypeAdapter<T>() {
+        override fun write(writer: JsonWriter, value: T?) {
+            value?.let {
+                writer.value(it.serialize())
+            }
+        }
+
+        override fun read(reader: JsonReader): T {
+            val string = reader.nextString()
+            return creator(string)
+        }
+    }
+
+    private fun <T : CurrencyAmount> currencyAdapter(creator: (String) -> CurrencyAmount) = object : TypeAdapter<T>() {
+        override fun write(writer: JsonWriter, value: T?) {
+            value?.let {
+                val string = it.toString()
+
+                writer.value(string)
+            }
+        }
+
+        override fun read(reader: JsonReader): T {
+            val string = reader.nextString()
+            val amount = creator(string) as T
+            return amount
         }
     }
 
