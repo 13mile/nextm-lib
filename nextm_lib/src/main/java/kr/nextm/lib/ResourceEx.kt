@@ -51,8 +51,11 @@ fun Int.getColor() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
     ActivityCompat.getColor(app, this)
 }
 
-fun CharSequence.toHtml(): Spanned {
-    val text = replaceNewLineToBrForPlainText()
+fun CharSequence.toHtml(replaceNewLineToBrForPlainText: Boolean = true): Spanned {
+    val text = if (replaceNewLineToBrForPlainText)
+        replaceNewLineToBrForPlainText()
+    else
+        this.toString()
 
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
@@ -61,7 +64,7 @@ fun CharSequence.toHtml(): Spanned {
 }
 
 private fun CharSequence.replaceNewLineToBrForPlainText(): String {
-    return if (!contains("<br>"))
+    return if (!contains("<br") && !contains("<p"))
         toString().replace("\n", "<br>")
     else
         toString()
