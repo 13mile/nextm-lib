@@ -1,8 +1,7 @@
 package kr.nextm.lib
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class ResourceExKtTest {
 
@@ -47,8 +46,17 @@ class ResourceExKtTest {
     }
 
     @Test
-    fun toHtml() {
-        "".toHtml()
+    fun `toHtml-개행태그가-없을-경우-개행문자를-br-태그로-변경`() {
+        assertEquals("<br>".toHtml(false), "\n".toHtml())
+        assertEquals("<br/>".toHtml(false), "\n".toHtml())
+    }
+
+    @Test
+    fun `toHtml-개행태그가-있을-경우-개행문자를-br-태그로-변경하지-않음`() {
+        assertEquals("<br>".toHtml(false), "<br>\n".toHtml())
+        assertEquals("<br>".toHtml(false), "<br/>\n".toHtml())
+        assertEquals("<p>".toHtml(false), "<p>\n".toHtml())
+        assertEquals("<p>".toHtml(false), "<p/>\n".toHtml())
     }
 
     @Test
