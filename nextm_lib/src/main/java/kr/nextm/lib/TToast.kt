@@ -65,7 +65,12 @@ class TToast : Toast(context) {
         private fun useCustomView() = idCustomView != null && idMessageTextView != null
 
         private var lastToast: WeakReference<Toast>? = null
+        private var textSize:Float? = null
 
+        @JvmStatic
+        fun setTextSize(textSize:Float?) {
+            this.textSize = textSize
+        }
 
         /**
          * Make a custom toast that just contains a text view.
@@ -95,7 +100,9 @@ class TToast : Toast(context) {
             val toast = Toast.makeText(context, text, duration)
             val group = toast.view as ViewGroup
             val messageTextView = group.getChildAt(0) as TextView
-            messageTextView.textSize = 25f
+            textSize?.let {
+                messageTextView.textSize = it
+            }
             return toast
         }
 
