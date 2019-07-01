@@ -65,7 +65,7 @@ class TToast : Toast(context) {
         private fun useCustomView() = idCustomView != null && idMessageTextView != null
 
         private var lastToast: WeakReference<Toast>? = null
-        private var textSize:Float? = null
+        private var textSize:Float? = 25f
 
         @JvmStatic
         fun setTextSize(textSize:Float?) {
