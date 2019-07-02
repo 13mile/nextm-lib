@@ -29,6 +29,19 @@ fun Number.dpToPixels(): Int {
     ).toInt()
 }
 
+fun Int.pixelsToDp(): Float {
+    val density = app.resources.displayMetrics.density
+
+    val value: Float = when (density) {
+        1.0f -> this / 4.0f
+        1.05f -> this / (1.5 * (8 / 3))
+        2.0f -> this / 4.0f
+        else -> this / density
+    } as Float
+
+    return value
+}
+
 fun <E> Collection<E>.getSample(index: Int): E {
     return this.elementAt(index % size)
 }
