@@ -1,6 +1,7 @@
 package kr.nextm.lib
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class ResourceExKtTest {
@@ -18,11 +19,6 @@ class ResourceExKtTest {
     @Test
     fun format_string() {
         assertEquals("int 1 / str Str", kr.nextm.ex.next_m_lib.R.string.format_1.getString(1, "Str"))
-    }
-
-    @Test
-    fun dpToPixels() {
-        30.dpToPixels()
     }
 
     @Test
@@ -65,4 +61,5 @@ class ResourceExKtTest {
         assertEquals(false, "abcdefg".contains("BCDEF"))
         assertEquals(false, "abcdefg".containsIgnoreCase("fgabc"))
     }
+
 }
