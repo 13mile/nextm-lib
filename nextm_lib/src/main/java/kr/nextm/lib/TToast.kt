@@ -203,14 +203,14 @@ class TToast : Toast(context) {
 
         @JvmStatic
         fun showDebug(debugMessage: CharSequence) {
-            if (TLog.enabled) {
+            if (BuildConfig.DEBUG) {
                 show("DEBUG:$debugMessage")
             }
         }
 
         @JvmStatic
         fun showDebug(t: Throwable) {
-            if (TLog.enabled) {
+            if (BuildConfig.DEBUG) {
                 t.printStackTrace()
                 TLog.e(t)
                 show("DEBUG: Throwable: ${t.message}")
