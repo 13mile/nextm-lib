@@ -200,17 +200,23 @@ class TToast : Toast(context) {
             lastToast = null
         }
 
+        var debugEnabled = false
+        
+        @JvmStatic
+        fun debugEnable(enable: Boolean) {
+            debugEnabled = enable
+        }
 
         @JvmStatic
         fun showDebug(debugMessage: CharSequence) {
-            if (BuildConfig.DEBUG) {
+            if (debugEnabled) {
                 show("DEBUG:$debugMessage")
             }
         }
 
         @JvmStatic
         fun showDebug(t: Throwable) {
-            if (BuildConfig.DEBUG) {
+            if (debugEnabled) {
                 t.printStackTrace()
                 TLog.e(t)
                 show("DEBUG: Throwable: ${t.message}")
